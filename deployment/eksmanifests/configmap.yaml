@@ -4,5 +4,5 @@ metadata:
   name: app-config
   namespace: final
 data:
-  BACKGROUND_IMAGE_URL: "s3://your-private-bucket/path/to/image.jpg"
-  HEADER_NAME: "Your Name"
+  BACKGROUND_IMAGE_URL: "s3://myvucket160896/istockphoto-1456866576-612x612.jpg"
+  HEADER_NAME: "suma latha"

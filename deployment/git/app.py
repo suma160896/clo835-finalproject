@@ -10,8 +10,12 @@ DBHOST = os.environ.get("DBHOST") or "localhost"
 DBUSER = os.environ.get("DBUSER") or "root"
 DBPWD = os.environ.get("DBPWD") or "password"
 DATABASE = os.environ.get("DATABASE") or "employees"
-S3_IMAGE_URL = os.environ.get('S3_IMAGE_URL') or "https://myvucket160896.s3.amazonaws.com/istockphoto-1456866576-612x612.jpg"
+#S3_IMAGE_URL = os.environ.get('S3_IMAGE_URL') or "https://myvucket160896.s3.amazonaws.com/istockphoto-1456866576-612x612.jpg"
 DBPORT = int(os.environ.get("DBPORT"))
+
+S3_IMAGE_URL = os.environ.get('BACKGROUND_IMAGE_URL')
+header_name = os.environ.get('HEADER_NAME')
+
 
 # Create a connection to the MySQL database
 db_conn = connections.Connection(
