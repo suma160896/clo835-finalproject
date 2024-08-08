@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: flask-container
-          image: 160045352367.dkr.ecr.us-east-1.amazonaws.com/my-repo:flask-app-v0.1
+          image: 160045352367.dkr.ecr.us-east-1.amazonaws.com/my-repo:flaskapp-v0.1
           ports:
             - containerPort: 81
           env:
@@ -33,5 +33,15 @@ spec:
                 secretKeyRef:
                   name: db-secrets
                   key: MYSQL_PASSWORD
+            - name: BACKGROUND_IMAGE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: BACKGROUND_IMAGE_URL
+            - name: HEADER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: HEADER_NAME
       imagePullSecrets:
         - name: ecr-registry-secret

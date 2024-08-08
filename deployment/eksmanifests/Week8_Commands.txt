@@ -1,0 +1,82 @@
+#  Make sure you are using AWS CLI version 2. Use these instructions to update the AWS CLI version in your Cloud9 environment. 
+
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+
+ /usr/local/bin/aws –-version 
+
+
+# Configure your permanent credentials and disable Cloud9 temporary credentials 
+ /usr/local/bin/aws cloud9 update-environment --environment-id $C9_PID  --managed-credentials-action DISABLE
+
+rm -vf ${HOME}/.aws/credentials
+
+# Use credentials from AWS Academy AWS Details and copy them into ~/.aws/credentials file
+
+# install jq
+sudo yum -y install jq gettext bash-completion moreutils
+
+# Install eksctl
+curl --silent --location "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz" | tar xz -C /tmp
+sudo mv -v /tmp/eksctl /usr/local/bin
+
+# Enable eksctl bash completion
+eksctl completion bash >> ~/.bash_completion
+. /etc/profile.d/bash_completion.sh
+. ~/.bash_completion
+
+# Create the cluster - these steps will take a few minutes
+# https://eksctl.io/usage/creating-and-managing-clusters/
+# Make sure to edit the eks_config and specify your Account Id in place of the [YOUR AWS ACCOUNT]
+# Update the version entry to ensure we use the version supported by AWS EKS
+
+eksctl create cluster -f eks_config.yaml
+
+# Switch to CloudFormation service, examine the resources that are being created
+# Update your Kube config
+aws eks update-kubeconfig --name clo835  --region us-east-1 
+
+# Note - if you have problems using “aws configure” and authenticating to K8s,  delete the token line in ~/.aws/credentials
+# As a last resort, export your credentials as environment variables
+# https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html
+export AWS_ACCESS_KEY_ID=your key
+export AWS_SECRET_ACCESS_KEY=your secret
+export AWS_DEFAULT_REGION=us-east-1
+
+=================
+
+# Optional: Increase disk space of Cloud9
+# https://www.eksworkshop.com/020_prerequisites/workspace/
+
+
+# Install kubectl. Important: kubectl version should match Kubernetes version specified in the eks_config.yaml. 
+# For example, as of Winter 2023 the K8s and kubectl versions are 1.22
+# https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/ 
+
+export VERSION=v1.22.0
+curl -LO "https://dl.k8s.io/release/$VERSION/bin/linux/amd64/kubectl" 
+sudo mv ./kubectl /usr/local/bin/
+chmod +x /usr/local/bin/kubectl
+
+
+# Optional: Install bash completion 
+kubectl completion bash >>  ~/.bash_completion
+. /etc/profile.d/bash_completion.sh
+. ~/.bash_completion
+
+# Optional: Add kubectl alias
+echo "alias k=kubectl" >> ~/.bashrc 
+ . ~/.bashrc
+
+
+# Optional: Set loadBalancer Controller version
+echo 'export LBC_VERSION="v2.4.1"' >>  ~/.bash_profile
+echo 'export LBC_CHART_VERSION="1.4.1"' >>  ~/.bash_profile
+.  ~/.bash_profile
+
+
+
+
+
+
