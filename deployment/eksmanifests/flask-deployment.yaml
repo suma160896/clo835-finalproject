@@ -16,7 +16,7 @@ spec:
       serviceAccountName: clo835
       containers:
       - name: flask-container
-        image: 160045352367.dkr.ecr.us-east-1.amazonaws.com/my-repo:flask-app-v0.1:latest
+        image: 160045352367.dkr.ecr.us-east-1.amazonaws.com/my-repo:flask-app-v0.1
         ports:
         - containerPort: 81
         env:
@@ -40,3 +40,11 @@ spec:
             secretKeyRef:
               name: db-secrets
               key: MYSQL_PASSWORD
+        - name: DBHOST
+          value: "192.168.69.188"  # Use the MySQL service name here
+        - name: DBPORT
+          value: "3306"
+        # - name: DBUSER
+        #   value: "root"
+        # - name: DBPWD
+        #   value: "password"
