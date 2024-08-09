@@ -20,9 +20,15 @@ spec:
             - containerPort: 81
           env:
             - name: DBHOST
-              value: mysql  # Replace with your MySQL service name
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: DBHOST
             - name: DBPORT
-              value: "3306"
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-config
+                  key: DBPORT
             - name: MYSQL_USER
               valueFrom:
                 secretKeyRef:
