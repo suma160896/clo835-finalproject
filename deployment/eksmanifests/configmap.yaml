@@ -4,7 +4,8 @@ metadata:
   name: app-config
   namespace: final
 data:
-  BACKGROUND_IMAGE_URL: "https://myvucket160896.s3.amazonaws.com/image2.jpg"
+  BACKGROUND_IMAGE_URL: "https://mybucket160896.s3.amazonaws.com/istockphoto-1456866576-612x612.jpg"
+  # BACKGROUND_IMAGE_URL: "https://mybucket160896.s3.amazonaws.com/image2.jpg"
   HEADER_NAME: "From Suma latha Pittala website"
   DBHOST: "mysql"  # Service name or hostname
   DBPORT: "3306"

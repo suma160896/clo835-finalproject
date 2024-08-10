@@ -13,7 +13,7 @@ DATABASE = os.environ.get("DATABASE") or "employees"
 DBPORT = int(os.environ.get("DBPORT", 3306))
 
 # Environment variables for S3 image URL and header name
-S3_IMAGE_URL = os.environ.get('BACKGROUND_IMAGE_URL')# or "https://myvucket160896.s3.amazonaws.com/istockphoto-1456866576-612x612.jpg"
+S3_IMAGE_URL = os.environ.get('BACKGROUND_IMAGE_URL') #or "https://myvucket160896.s3.amazonaws.com/istockphoto-1456866576-612x612.jpg"
 header_name = os.environ.get('HEADER_NAME') #or "Suma latha Pittala"
 
 # Set up logging
@@ -28,6 +28,9 @@ db_conn = connections.Connection(
     db=DATABASE
 )
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return "Healthy", 200
 # Route for the home page
 @app.route("/", methods=['GET', 'POST'])
 def home():
