@@ -22,12 +22,12 @@ spec:
             - name: DBHOST
               valueFrom:
                 configMapKeyRef:
-                  name: mysql-config
+                  name: app-config
                   key: DBHOST
             - name: DBPORT
               valueFrom:
                 configMapKeyRef:
-                  name: mysql-config
+                  name: app-config
                   key: DBPORT
             - name: MYSQL_USER
               valueFrom:
